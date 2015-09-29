@@ -25,11 +25,26 @@ public class Bateau {
 		
 	}
 	
-	/**
-	 * Méthode de déplacement du bateau
-	 * @param direction : direction du déplacement
-	 * @param nb : nombre de cases de déplacement
-	 */
+	public int getLongueur() {
+		return this.longueur;
+	}
+	
+	public int getChampTir() {
+		return this.champ_tir;
+	}
+	
+	public Case getCaseOrigine() {
+		return this.case_origine;
+	}
+	
+	public String getOrientation() {
+		return this.orientation;
+	}
+	
+	public char getSymbole() {
+		return this.symbole;
+	}
+	
 	public void deplacer(String direction, int nb) {
 		
 		if (direction == "nord" || direction == "sud" || direction == "est" || direction == "ouest") {
