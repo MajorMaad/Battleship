@@ -32,7 +32,7 @@ public class Bateau {
 	 */
 	public void deplacer(String direction, int nb) {
 		
-		if (orientation == "nord" || orientation == "sud" || orientation == "est" || orientation == "ouest") {
+		if (direction == "nord" || direction == "sud" || direction == "est" || direction == "ouest") {
 			if (nb > 0 && nb <= 2) {
 				//this.case_origine.setEtat(' ');
 			}
