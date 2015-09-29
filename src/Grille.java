@@ -79,14 +79,118 @@ public class Grille {
 							break;
 					}
 				}
+				i++;
 			}
 		}
 		
-		// Ajout du bateau dans le tableau si possible
-		if (ajout && position < 5)
+		// Ajout du bateau dans le tableau si possible et modification des cases
+		if (ajout && position < 5) {
 			this.bateaux[position] = bateau;
 			
+			//Modification de l'etat des cases en conséquence
+			boolean modification_fini = false;
+			int i = 1;
+			
+			// numeric value de a => 10, de b =>11 et ainsi de suite, on enleve donc 10
+			int ligne_a_modifier = Character.getNumericValue(bateau.getCaseOrigine().getLigne()) - 10;
+			int colonne_a_modifier = Character.getNumericValue(bateau.getCaseOrigine().getColonne());
+			
+			while(!modification_fini) {
+				
+				this.cases[ligne_a_modifier][colonne_a_modifier].setEtat(bateau.getSymbole());
+				
+				switch(bateau.getOrientation()) {
+					case "nord":
+						ligne_a_modifier -= 1;
+						break;
+					case "sud":
+						ligne_a_modifier += 1;
+						break;
+					case "est":
+						colonne_a_modifier += 1;
+						break;
+					case "ouest":
+						colonne_a_modifier -= 1;
+						break;
+					default:
+						break;
+				}
+				
+				i++;
+				if (i > bateau.getLongueur())
+					modification_fini = true;
+			}
+		}
+			
 		return ajout;
+	}
+	
+	/**
+	 * Retourne la grille, bateaux compris
+	 * @return String de la grille
+	 */
+	public String affichageAttaque() {
+		String ligne ="";
+		String str = "  0 1 2 3 4 5 6 7 8 9\n";
+		
+		for (int i=0; i < 10; i++) {
+			
+			switch (i) {
+				case 0:
+					ligne = "A";
+					break;
+				case 1:
+					ligne = "B";
+					break;
+				case 2:
+					ligne = "C";
+					break;
+				case 3:
+					ligne = "D";
+					break;
+				case 4:
+					ligne = "E";
+					break;
+				case 5:
+					ligne = "F";
+					break;
+				case 6:
+					ligne = "G";
+					break;
+				case 7:
+					ligne = "H";
+					break;
+				case 8:
+					ligne = "I";
+					break;
+				case 9:
+					ligne = "J";
+					break;
+				default:
+					ligne = "U";
+					break;
+			}
+			
+			str += ligne + " ";
+			
+			for (int j=0; j < 10; j++) {
+				str += this.cases[i][j].toString() + " ";
+			}
+			
+			str += "\n";
+		}
+		
+		return str;
+	}
+	
+	/**
+	 * Retourne la grille sans les bateaux
+	 * @return String de la grille
+	 */
+	public String affichageDefense() {
+		String str = "";
+		
+		return str;
 	}
 
 }
