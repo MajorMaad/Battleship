@@ -38,6 +38,10 @@ public class Case {
 		return this.etat;
 	}
 	
+	public void setEtat(char etat) {
+		this.etat = etat;
+	}
+	
 	public String toString() {
 		String str = String.valueOf(this.etat);
 		
