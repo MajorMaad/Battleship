@@ -26,6 +26,18 @@ public class Case {
 			this.etat = etat;
 	}
 	
+	public char getLigne() {
+		return this.ligne;
+	}
+	
+	public char getColonne() {
+		return this.colonne;
+	}
+	
+	public char getEtat() {
+		return this.etat;
+	}
+	
 	public String toString() {
 		String str = String.valueOf(this.etat);
 		
