@@ -344,5 +344,17 @@ public class Grille {
 			} else return false;
 		} else return false;
 	}
+	
+	/**
+	 * Permet de récupérer le bateau à l'indice i du tableau s'il existe
+	 * @param i indice du bateau
+	 * @return le bateau stocké à l'indice i
+	 */
+	public Bateau getBateau(int i){
+		Bateau res = null;
+		if(i < this.bateaux.length)
+			res = this.bateaux[i];
+		return res;
+	}
 
 }
