@@ -100,7 +100,7 @@ public class Joueur {
 	 * Vérifie si la case sélectionnée par le joueur est correcte
 	 * Redemande au joueur de faire une saisie tant que celle-ci n'est pas correcte
 	 * @param scan le scanner utilisé par le joueur
-	 * @return le caractère représentant la ligne sélectionnée
+	 * @return le caractère représentant la colonne sélectionnée
 	 */
 	private char selectionnerColonne(Scanner scan){
 		char res = '.';
