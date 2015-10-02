@@ -47,13 +47,19 @@ public class Joueur {
 			System.out.println("Sélectionnez l'orientation du bateau");
 			System.out.println("(n pour Nord, e pour Est, o pour Ouest et s pour Sud)");
 			touchePressee = scan.next().charAt(0);
-			if("nseo".indexOf(touchePressee) >= 0)
-				switch("nseo".indexOf(touchePressee)){
+			if("nseo".indexOf(touchePressee) >= 0 || "NSEO".indexOf(touchePressee) >= 0){
+				int i;
+				if("nseo".indexOf(touchePressee) >= 0)
+					i = "nseo".indexOf(touchePressee);
+				else
+					i = "NSEO".indexOf(touchePressee); 
+				switch(i){
 				case 0 : infosCase[2] = "nord"; break;
 				case 1 : infosCase[2] = "sud"; break;
 				case 2 : infosCase[2] = "est"; break;
 				case 3 : infosCase[2] = "ouest";
 				}
+			}
 			else
 				System.out.println("Mauvaise touche, vous avez tapé "+touchePressee);
 		}
@@ -75,8 +81,11 @@ public class Joueur {
 		while(res == '.'){
 			System.out.println("Sélectionnez une ligne (de A à J)");
 			touchePressee = scan.next().charAt(0);
-			if("abcdefghij".indexOf(touchePressee) >= 0)
-				res = touchePressee;
+			if("abcdefghij".indexOf(touchePressee) >= 0 || "ABCDEFGHIJ".indexOf(touchePressee) >= 0)
+				if("ABCDEFGHIJ".indexOf(touchePressee) >= 0)
+					res = (touchePressee+"").toLowerCase().charAt(0);
+				else
+					res = touchePressee;
 			else
 				System.out.println("Mauvaise touche, vous avez tapé "+touchePressee);
 		}
