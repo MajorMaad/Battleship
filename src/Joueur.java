@@ -13,7 +13,7 @@ public class Joueur {
 
 	private int num;				// numéro du joueur
 	private Grille grille;			// représente la grille de jeu du joueur
-	private boolean phaseAttaque;	// indique si le joueur est en phase d'attaque ou non (changera l'affichage de sa grille)
+	private boolean phaseAttaque;	// indique si le joueur est en phase d'attaque (changera l'affichage de sa grille)
 	
 	/**
 	 * Le constructeur de base du joueur, où on lui fournit une grille de jeu
@@ -100,7 +100,7 @@ public class Joueur {
 	 * Vérifie si la case sélectionnée par le joueur est correcte
 	 * Redemande au joueur de faire une saisie tant que celle-ci n'est pas correcte
 	 * @param scan le scanner utilisé par le joueur
-	 * @return le caractère représentant la ligne sélectionnée
+	 * @return le caractère représentant la colonne sélectionnée
 	 */
 	private char selectionnerColonne(Scanner scan){
 		char res = '.';
