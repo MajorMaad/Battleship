@@ -46,12 +46,70 @@ public class Bateau {
 	}
 	
 	public void deplacer(String direction, int nb) {
+		Case nouvelle_case;
+		char etat = this.case_origine.getEtat();
+		int nouvelle_ligne = this.case_origine.getLigneInt();
+		int nouvelle_colonne = this.case_origine.getColonneInt();
+		char nouvelle_ligne_char, nouvelle_colonne_char;
 		
-		if (direction == "nord" || direction == "sud" || direction == "est" || direction == "ouest") {
-			if (nb > 0 && nb <= 2) {
-				//this.case_origine.setEtat(' ');
-			}
+		switch (direction) {
+			case "nord":
+				nouvelle_ligne -= nb;
+				break;
+			case "sud":
+				nouvelle_ligne += nb;
+				break;
+			case "est":
+				nouvelle_colonne += nb;
+				break;
+			case "ouest":
+				nouvelle_colonne -= nb;
+				break;
+			default:
+				break;
 		}
+		
+		switch (nouvelle_ligne) {
+			case 0:
+				nouvelle_ligne_char = 'a';
+				break;
+			case 1:
+				nouvelle_ligne_char = 'b';
+				break;
+			case 2:
+				nouvelle_ligne_char = 'c';
+				break;
+			case 3:
+				nouvelle_ligne_char = 'd';
+				break;
+			case 4:
+				nouvelle_ligne_char = 'e';
+				break;
+			case 5:
+				nouvelle_ligne_char = 'f';
+				break;
+			case 6:
+				nouvelle_ligne_char = 'g';
+				break;
+			case 7:
+				nouvelle_ligne_char = 'h';
+				break;
+			case 8:
+				nouvelle_ligne_char = 'i';
+				break;
+			case 9:
+				nouvelle_ligne_char = 'j';
+				break;
+			default: 
+				nouvelle_ligne_char = ' ';
+				break;
+				
+		}
+		
+		nouvelle_colonne_char = Integer.toString(nouvelle_colonne).charAt(0);
+		
+		nouvelle_case = new Case(nouvelle_ligne_char, nouvelle_colonne_char, etat);
+		this.case_origine = nouvelle_case;
 	}
 
 }

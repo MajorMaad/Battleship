@@ -248,5 +248,101 @@ public class Grille {
 		
 		return str;
 	}
+	/**
+	 * Methode de déplacement d'un bateau
+	 * @param direction : nord sud est ouest
+	 * @param nb : nb de case de deplacement (1 ou 2)
+	 * @param position : position du bateau dans le tableau (this.bateaux)
+	 * @return false si impossible a deplacer
+	 */
+	public boolean deplacer_bateau(String direction, int nb, int position) {
+		if (direction == "nord" || direction == "sud" || direction == "est" || direction == "ouest") {
+			if (nb > 0 && nb <= 2 && position < 5) {
+				int longueur = this.bateaux[position].getLongueur();
+				int ancienne_ligne = this.bateaux[position].getCaseOrigine().getLigneInt();
+				int ancienne_colonne = this.bateaux[position].getCaseOrigine().getColonneInt();
+				int ligne = this.bateaux[position].getCaseOrigine().getLigneInt();
+				int colonne = this.bateaux[position].getCaseOrigine().getColonneInt();
+				
+				switch (direction) {
+					case "nord":
+						ligne -= nb;
+						break;
+					case "sud":
+						ligne += nb;
+						break;
+					case "est":
+						colonne += nb;
+						break;
+					case "ouest":
+						colonne -= nb;
+						break;
+					default: 
+						break;
+				}
+				
+				if (ligne < 0 || ligne > 9 || colonne < 0 || colonne > 9)
+					return false;
+				else {
+					int tampon_ligne = ligne;
+					int tampon_colonne = colonne;
+					
+					for (int i = 0; i < longueur; i++) {
+						if (this.cases[ligne][colonne].getEtat() == 'p' || this.cases[ligne][colonne].getEtat() == 'c' || this.cases[ligne][colonne].getEtat() == 'r' || this.cases[ligne][colonne].getEtat() == 's' || this.cases[ligne][colonne].getEtat() == 't')
+							return false;
+						else {
+							switch (this.bateaux[position].getOrientation()) {
+								case "nord":
+									ligne -= 1;
+									break;
+								case "sud":
+									ligne += 1;
+									break;
+								case "est":
+									colonne += 1;
+									break;
+								case "ouest":
+									colonne -= 1;
+									break;
+								default:
+									break;
+							}
+						}
+					}
+					
+					ligne = tampon_ligne;
+					colonne = tampon_colonne;
+					for (int i = 0; i < longueur; i++) {
+						this.cases[ancienne_ligne][ancienne_colonne].setEtat(' ');
+						this.cases[ligne][colonne].setEtat(this.bateaux[position].getSymbole());
+						
+						switch (this.bateaux[position].getOrientation()) {
+							case "nord":
+								ligne -= 1;
+								ancienne_ligne -= 1;
+								break;
+							case "sud":
+								ligne += 1;
+								ancienne_ligne += 1;
+								break;
+							case "est":
+								colonne += 1;
+								ancienne_colonne += 1;
+								break;
+							case "ouest":
+								colonne -= 1;
+								ancienne_colonne -= 1;
+								break;
+							default:
+								break;
+						}
+					}
+					this.bateaux[position].deplacer(direction, nb);
+					return true;
+				}
+				
+			} else return false;
+		} else return false;
+	}
 
 }
