@@ -43,17 +43,17 @@ public class Battleship {
 	 * Fonction permettant de créer et placer un bateau en fonction des informations données par le joueur
 	 * La saisie est redemandée tant qu'une information est erronée ou que le bateau ne peut pas être placé
 	 * @param nom nom du bateau à placer
-	 * @param j1 joueur qui va placer le bateau
+	 * @param j joueur qui va placer le bateau
 	 * @param num numéro du bateau à placer pour le joueur
 	 */
-	public static void placerBateau(String nom, Joueur j1, int num){
+	public static void placerBateau(String nom, Joueur j, int num){
 		String infosBateau[];
 		Bateau b;
 		boolean bateauPlace = false;
 		
 		System.out.println(nom + " en cours de placement");
 		do{
-			infosBateau = j1.placerBateau();
+			infosBateau = j.placerBateau();
 			switch(nom){
 			case "Porte-avion" : b = new PorteAvion(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
 			case "Croiseur" : b = new Croiseur(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
@@ -62,7 +62,7 @@ public class Battleship {
 			case "Torpilleur" : b = new Torpilleur(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
 			default : b = new Bateau(1, 1, new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2], 'b');
 			}
-			bateauPlace = j1.getGrille().ajouterBateau(b, num);
+			bateauPlace = j.getGrille().ajouterBateau(b, num);
 			if(!bateauPlace)
 				System.out.println("Erreur de placement, veuillez recommencer");
 		}while(!bateauPlace);
