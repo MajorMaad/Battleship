@@ -30,13 +30,25 @@ public class Battleship {
 		System.out.println("\nTOUR DU JOUEUR " + j1.getNum());
 		
 		placerBateau("Porte-avion", j1, 0);
-		placerBateau("Croiseur", j1, 1);
-		placerBateau("Contre-torpilleur", j1, 2);
-		placerBateau("Sous-marin", j1, 3);
-		placerBateau("Torpilleur", j1, 4);
-		
 		System.out.println("\n");
 		System.out.println(grille.affichageAttaque());
+		
+		placerBateau("Croiseur", j1, 1);
+		System.out.println("\n");
+		System.out.println(grille.affichageAttaque());
+		
+		placerBateau("Contre-torpilleur", j1, 2);
+		System.out.println("\n");
+		System.out.println(grille.affichageAttaque());
+		
+		placerBateau("Sous-marin", j1, 3);
+		System.out.println("\n");
+		System.out.println(grille.affichageAttaque());
+		
+		placerBateau("Torpilleur", j1, 4);
+		System.out.println("\n");
+		System.out.println(grille.affichageAttaque());
+		
 	}
 	
 	/**

@@ -53,13 +53,13 @@ public class Grille {
 			int i = 1;
 			while(verifier) {
 				// Si il y un autre bateau sur cette case ou si on a verifier toute la longueur du bateau
-				if (this.cases[ligne_a_verifier][colonne_a_verifier].getEtat() != ' ' || i > bateau.getLongueur()) {
+				if (this.cases[ligne_a_verifier][colonne_a_verifier].getEtat() != ' ' || i >= bateau.getLongueur()) {
 					verifier = false;
 					// Si on a parcouru toute les cases sans soucis on peut ajouterle bateau
-					if (i > bateau.getLongueur())
+					if (i >= bateau.getLongueur())
 						ajout = true;
 				}
-				else {
+				else {					
 					// Suivant l'orientation du bateau on va incrémenter la ligne ou la colonne a verifier
 					switch(bateau.getOrientation()) {
 						case "nord":
@@ -77,6 +77,10 @@ public class Grille {
 						default:
 							ajout = false;
 							break;
+					}
+					if (ligne_a_verifier < 0  || ligne_a_verifier > 9 || colonne_a_verifier < 0 || colonne_a_verifier > 9) {
+						ajout = false;
+						break;
 					}
 				}
 				i++;
