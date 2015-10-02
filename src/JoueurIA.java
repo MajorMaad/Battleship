@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.Scanner;
 
 
 /**
@@ -9,7 +8,7 @@ import java.util.Scanner;
  *
  */
 public class JoueurIA extends Joueur {
-
+	
 	public JoueurIA (int num, Grille g){
 		super(num, g);
 	}

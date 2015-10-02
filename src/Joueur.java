@@ -13,7 +13,7 @@ public class Joueur {
 
 	private int num;				// numéro du joueur
 	private Grille grille;			// représente la grille de jeu du joueur
-	private boolean phaseAttaque;	// indique si le joueur est en phase d'attaque ou non (changera l'affichage de sa grille)
+	private boolean phaseAttaque;	// indique si le joueur est en phase d'attaque (changera l'affichage de sa grille)
 	
 	/**
 	 * Le constructeur de base du joueur, où on lui fournit une grille de jeu
