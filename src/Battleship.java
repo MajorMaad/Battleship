@@ -62,7 +62,7 @@ public class Battleship {
 		placerBateau("Sous-marin", j2, 3);
 		placerBateau("Torpilleur", j2, 4);
 		System.out.println("Placement terminé");
-		// juste pour le debug, devra être enlevé dans la version finale
+		// juste pour le debug, devra être enlevé pour l'IA dans la version finale
 		System.out.println(j2.getGrille().affichageAttaque());
 		
 	}
@@ -103,7 +103,7 @@ public class Battleship {
 			if(!bateauPlace && !(j instanceof JoueurIA))
 				System.out.println("Erreur de placement, veuillez recommencer");
 		}while(!bateauPlace);
-		// Devra être enlevé dans la version finale, on le garde juste pour le debug
+		// Devra être enlevé pour l'IA dans la version finale, on le garde juste pour le debug
 		System.out.println(nom + " placé en "+infosBateau.charAt(0) + infosBateau.charAt(1) + " " + orientation);
 	}
 
