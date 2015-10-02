@@ -28,12 +28,11 @@ public class Joueur {
 	}
 	
 	/**
-	 * Première phase du jeu, le joueur choisi où il souhaite placer le bateau passé en paramètre
-	 * Cette phase recommence tant que le joueur n'a pas bien placé son bateau
-	 * @param taille longueur du bateau en nombre de case
+	 * Méthode permettant au joueur de choisir une case et une orientation pour un bateau quelconque
+	 * Vérifie si les informations données sont correctes avant de les renvoyer
 	 * @return infosCase les coordonnées (ligne, colonne) ainsi que l'orientation du bateau
 	 */
-	public String[] placerBateau(int taille){
+	public String[] placerBateau(){
 		char touchePressee;
 		String infosCase[] = new String[3];
 		Scanner scan = new Scanner(System.in);
