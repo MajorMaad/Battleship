@@ -63,26 +63,33 @@ public class Battleship {
 	 * @param num numéro du bateau à placer pour le joueur
 	 */
 	public static void placerBateau(String nom, Joueur j, int num){
-		String infosBateau[];
+		String infosBateau;
+		String orientation = "";
 		Bateau b;
 		boolean bateauPlace = false;
 		
 		System.out.println(nom + " en cours de placement");
 		do{
 			infosBateau = j.placerBateau();
+			switch(infosBateau.charAt(2)){
+			case 'n' : orientation = "nord"; break;
+			case 's' : orientation = "sud"; break;
+			case 'e' : orientation = "est"; break;
+			case 'o' : orientation = "ouest";
+			}
 			switch(nom){
-			case "Porte-avion" : b = new PorteAvion(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
-			case "Croiseur" : b = new Croiseur(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
-			case "Contre-torpilleur" : b = new ContreTorpilleur(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
-			case "Sous-marin" : b = new SousMarin(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
-			case "Torpilleur" : b = new Torpilleur(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
-			default : b = new Bateau(1, 1, new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2], 'b');
+			case "Porte-avion" : b = new PorteAvion(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
+			case "Croiseur" : b = new Croiseur(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
+			case "Contre-torpilleur" : b = new ContreTorpilleur(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
+			case "Sous-marin" : b = new SousMarin(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
+			case "Torpilleur" : b = new Torpilleur(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
+			default : b = new Bateau(1, 1, new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation, 'b');
 			}
 			bateauPlace = j.getGrille().ajouterBateau(b, num);
 			if(!bateauPlace)
 				System.out.println("Erreur de placement, veuillez recommencer");
 		}while(!bateauPlace);
-		System.out.println(nom + " placé en "+infosBateau[0]+infosBateau[1]+" "+infosBateau[2]);
+		System.out.println(nom + " placé en "+infosBateau.charAt(0) + infosBateau.charAt(1) + " " + orientation);
 	}
 
 }

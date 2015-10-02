@@ -30,20 +30,21 @@ public class Joueur {
 	/**
 	 * Méthode permettant au joueur de choisir une case et une orientation pour un bateau quelconque
 	 * Vérifie si les informations données sont correctes avant de les renvoyer
-	 * @return infosCase les coordonnées (ligne, colonne) ainsi que l'orientation du bateau
+	 * @return infosCase une chaîne de caractère représentant les coordonnées (ligne, colonne) ainsi que l'orientation du bateau
 	 */
-	public String[] placerBateau(){
+	public String placerBateau(){
 		char touchePressee;
-		String infosCase[] = new String[3];
+		String infosCase = "";
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("Sélection de la case d'origine");
 		
-		infosCase[0] = selectionnerLigne(scan)+"";
-		infosCase[1] = selectionnerColonne(scan)+"";
+		infosCase = infosCase + selectionnerLigne(scan);
+		infosCase = infosCase + selectionnerColonne(scan);
 		
 		// Choix de l'orientation du bateau
-		while(infosCase[2] == null){
+		char res = '.';
+		while(res == '.'){
 			System.out.println("Sélectionnez l'orientation du bateau");
 			System.out.println("(n pour Nord, e pour Est, o pour Ouest et s pour Sud)");
 			touchePressee = scan.next().charAt(0);
@@ -54,15 +55,16 @@ public class Joueur {
 				else
 					i = "NSEO".indexOf(touchePressee); 
 				switch(i){
-				case 0 : infosCase[2] = "nord"; break;
-				case 1 : infosCase[2] = "sud"; break;
-				case 2 : infosCase[2] = "est"; break;
-				case 3 : infosCase[2] = "ouest";
+				case 0 : res = 'n'; break;
+				case 1 : res = 's'; break;
+				case 2 : res = 'e'; break;
+				case 3 : res = 'o';
 				}
 			}
 			else
 				System.out.println("Mauvaise touche, vous avez tapé "+touchePressee);
 		}
+		infosCase = infosCase + res;
 		
 		return infosCase;
 	}
