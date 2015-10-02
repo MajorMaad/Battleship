@@ -30,8 +30,49 @@ public class Case {
 		return this.ligne;
 	}
 	
+	public int getLigneInt() {
+		int ligne = 0;
+		switch(this.ligne) {
+			case 'a':
+				ligne = 0; 
+				break;
+			case 'b':
+				ligne = 1; 
+				break;
+			case 'c':
+				ligne = 2; 
+				break;
+			case 'd':
+				ligne = 3; 
+				break;
+			case 'e':
+				ligne = 4; 
+				break;
+			case 'f':
+				ligne = 5; 
+				break;
+			case 'g':
+				ligne = 6; 
+				break;
+			case 'h':
+				ligne = 7; 
+				break;
+			case 'i':
+				ligne = 8; 
+				break;
+			case 'j':
+				ligne = 9; 
+				break;
+		}
+		return ligne;
+	}
+	
 	public char getColonne() {
 		return this.colonne;
+	}
+	
+	public int getColonneInt() {
+		return Character.getNumericValue(this.colonne);
 	}
 	
 	public char getEtat() {
