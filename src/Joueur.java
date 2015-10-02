@@ -152,4 +152,8 @@ public class Joueur {
 	public int getNum(){
 		return this.num;
 	}
+	
+	public Grille getGrille(){
+		return this.grille;
+	}
 }
