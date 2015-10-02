@@ -192,7 +192,59 @@ public class Grille {
 	 * @return String de la grille
 	 */
 	public String affichageDefense() {
-		String str = "";
+		String ligne ="";
+		String str = "  0 1 2 3 4 5 6 7 8 9\n";
+		
+		for (int i=0; i < 10; i++) {
+			
+			switch (i) {
+				case 0:
+					ligne = "A";
+					break;
+				case 1:
+					ligne = "B";
+					break;
+				case 2:
+					ligne = "C";
+					break;
+				case 3:
+					ligne = "D";
+					break;
+				case 4:
+					ligne = "E";
+					break;
+				case 5:
+					ligne = "F";
+					break;
+				case 6:
+					ligne = "G";
+					break;
+				case 7:
+					ligne = "H";
+					break;
+				case 8:
+					ligne = "I";
+					break;
+				case 9:
+					ligne = "J";
+					break;
+				default:
+					ligne = "U";
+					break;
+			}
+			
+			str += ligne + " ";
+			
+			for (int j=0; j < 10; j++) {
+				if (this.cases[i][j].getEtat() != 'p' && this.cases[i][j].getEtat() != 'c' && this.cases[i][j].getEtat() != 'r' && this.cases[i][j].getEtat() != 's' && this.cases[i][j].getEtat() != 't')
+					str += this.cases[i][j].toString() + " ";
+				else {
+					str += "  "; // 2 espaces
+				}
+			}
+			
+			str += "\n";
+		}
 		
 		return str;
 	}

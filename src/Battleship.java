@@ -33,6 +33,7 @@ public class Battleship {
 		System.out.println("\n");
 		System.out.println(grille.affichageAttaque());
 		
+		
 		placerBateau("Croiseur", j1, 1);
 		System.out.println("\n");
 		System.out.println(grille.affichageAttaque());
@@ -48,6 +49,9 @@ public class Battleship {
 		placerBateau("Torpilleur", j1, 4);
 		System.out.println("\n");
 		System.out.println(grille.affichageAttaque());
+		
+		System.out.println("\n");
+		System.out.println(grille.affichageDefense());
 		
 	}
 	
