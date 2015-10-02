@@ -25,30 +25,48 @@ public class Battleship {
 		
 		// Test pour le placement avec un joueur humain
 		Joueur j1 = new Joueur(1, grille);
-		String infosBateau[];
-		boolean bateauJ1Place = false;
 		
 		System.out.println("\n----- Phase de placement -----");
 		System.out.println("\nTOUR DU JOUEUR " + j1.getNum());
 		
-		System.out.println("\nPorte-avion en cours de placement");
-		do{
-			infosBateau = j1.placerBateau();
-			Bateau pa1 = new PorteAvion(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]);
-			bateauJ1Place = grille.ajouterBateau(pa1, 0);
-			if(!bateauJ1Place)
-				System.out.println("Erreur de placement, veuillez recommencer");
-		}while(!bateauJ1Place);
-		System.out.println("Porte-avion placé en "+infosBateau[0]+infosBateau[1]+" "+infosBateau[2]);
-		/*
-		placerBateau("Croiseur", grille, j1);
-		placerBateau("Contre-torpilleur", grille, j1);
-		placerBateau("Sous-marin", grille, j1);
-		placerBateau("Torpilleur", grille, j1);
-		*/
+		placerBateau("Porte-avion", j1, 0);
+		placerBateau("Croiseur", j1, 1);
+		placerBateau("Contre-torpilleur", j1, 2);
+		placerBateau("Sous-marin", j1, 3);
+		placerBateau("Torpilleur", j1, 4);
 		
 		System.out.println("\n");
 		System.out.println(grille.affichageAttaque());
+	}
+	
+	/**
+	 * Fonction permettant de créer et placer un bateau en fonction des informations données par le joueur
+	 * La saisie est redemandée tant qu'une information est erronée ou que le bateau ne peut pas être placé
+	 * @param nom nom du bateau à placer
+	 * @param j1 joueur qui va placer le bateau
+	 * @param num numéro du bateau à placer pour le joueur
+	 */
+	public static void placerBateau(String nom, Joueur j1, int num){
+		String infosBateau[];
+		Bateau b;
+		boolean bateauPlace = false;
+		
+		System.out.println(nom + " en cours de placement");
+		do{
+			infosBateau = j1.placerBateau();
+			switch(nom){
+			case "Porte-avion" : b = new PorteAvion(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
+			case "Croiseur" : b = new Croiseur(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
+			case "Contre-torpilleur" : b = new ContreTorpilleur(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
+			case "Sous-marin" : b = new SousMarin(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
+			case "Torpilleur" : b = new Torpilleur(new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2]); break;
+			default : b = new Bateau(1, 1, new Case(infosBateau[0].charAt(0), infosBateau[1].charAt(0)), infosBateau[2], 'b');
+			}
+			bateauPlace = j1.getGrille().ajouterBateau(b, num);
+			if(!bateauPlace)
+				System.out.println("Erreur de placement, veuillez recommencer");
+		}while(!bateauPlace);
+		System.out.println(nom + " placé en "+infosBateau[0]+infosBateau[1]+" "+infosBateau[2]);
 	}
 
 }
