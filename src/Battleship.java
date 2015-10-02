@@ -9,25 +9,14 @@ public class Battleship {
 		System.out.println("-------------- 2015, UQAC --------------");
 		System.out.println("----------------------------------------");
 		
+		// Déclaration des éléments du jeu
 		Grille grille = new Grille();
 		Grille grille2 = new Grille();
-		
-		/* Test pour le placement des bateaux
-		// Porte Avion
-		Case origine = new Case('d', '2');
-		Bateau pa = new PorteAvion(origine, "sud");
-		boolean ok = grille.ajouterBateau(pa, 0);
-		
-		// Croiseur
-		Case origine2 = new Case('i', '0');
-		Bateau c = new Croiseur(origine2, "est");
-		boolean ok2 = grille.ajouterBateau(c, 1);
-		*/
-		
-		// Test pour le placement avec un joueur humain
 		Joueur j1 = new Joueur(1, grille);
 		JoueurIA j2 = new JoueurIA(2, grille2);
 		
+		
+		// Première phase : les placements
 		System.out.println("\n----- Phase de placement -----");
 		System.out.println("\nTOUR DU JOUEUR " + j1.getNum());
 		
@@ -65,6 +54,9 @@ public class Battleship {
 		// juste pour le debug, devra être enlevé pour l'IA dans la version finale
 		System.out.println(j2.getGrille().affichageAttaque());
 		
+		
+		// Deuxième phase : boucle de jeu et attaque
+		// A venir
 	}
 	
 	/**
