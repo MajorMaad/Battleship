@@ -56,7 +56,7 @@ public class Grille {
 				if (this.cases[ligne_a_verifier][colonne_a_verifier].getEtat() != ' ' || i >= bateau.getLongueur()) {
 					verifier = false;
 					// Si on a parcouru toute les cases sans soucis on peut ajouterle bateau
-					if (i >= bateau.getLongueur())
+					if (this.cases[ligne_a_verifier][colonne_a_verifier].getEtat() == ' ' && i == bateau.getLongueur())
 						ajout = true;
 				}
 				else {					
