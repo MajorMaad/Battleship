@@ -56,11 +56,16 @@ public class Battleship {
 		
 		// Deuxième phase : boucle de jeu et attaque
 		System.out.println("\n----- Phase d'attaque -----");
-		System.out.println("\nTOUR DU JOUEUR " + j1.getNum());
 		
+		System.out.println("\nTOUR DU JOUEUR " + j1.getNum());
 		System.out.println(j1.getGrille().affichageAttaque());
 		System.out.println(j2.getGrille().affichageDefense());
 		System.out.println("Case attaquée : " + j1.bombarderCase());
+		
+		System.out.println("\nTOUR DU JOUEUR " + j2.getNum());
+		System.out.println(j2.getGrille().affichageAttaque());	// A enlever pour la version finale
+		System.out.println(j1.getGrille().affichageDefense());	// idem
+		System.out.println("Case attaquée : " + j2.bombarderCase());
 	}
 	
 	/**
