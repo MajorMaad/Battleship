@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Vector;
 
 /**
  * La classe représentant les participants du jeu (personnes physiques)
@@ -11,9 +12,8 @@ import java.util.Scanner;
  */
 public class Joueur {
 
-	private int num;				// numéro du joueur
-	private Grille grille;			// représente la grille de jeu du joueur
-	private boolean phaseAttaque;	// indique si le joueur est en phase d'attaque (changera l'affichage de sa grille)
+	private int num;					// numéro du joueur
+	private Grille grille;				// représente la grille de jeu du joueur
 	
 	/**
 	 * Le constructeur de base du joueur, où on lui fournit une grille de jeu
@@ -24,7 +24,6 @@ public class Joueur {
 		super();
 		this.num = num;
 		this.grille = grille;
-		this.phaseAttaque = false;
 	}
 	
 	/**
@@ -119,35 +118,112 @@ public class Joueur {
 	}
 	
 	/**
-	 * Le joueur entre dans sa phase d'attaque
-	 * D'abord, il sélectionne quel bateau il souhaite utiliser
-	 * Puis, il indique quelle case il souhaite bombarder avec ce bateau
-	 * Cette phase est répétée tant que le joueur n'entre pas une bonne valeur
-	 * @return caseAttaquee la case que l'on a bombardé
+	 * Méthode permettant au joueur de choisir une case à bombarder
+	 * D'abord, le joueur choisit un bateau parmis ceux qui lui restent
+	 * Ensuite, les coups jouables sont affichés
+	 * Enfin, il entre les coordonnées d'une case
+	 * La saisie sera recommencée tant que le joueur n'aura pas choisi une case correcte
+	 * @return caseAttaquee une chaîne de caractères contenant les coordonnées (ligne, colonne) de la case frappée
 	 */
-	// A revoir plus tard
-	/*
-	public Case bombarderCase(){
-		Bateau flotte[] = grille.getBateaux();
-		Case caseAttaquee;
-		char bateauChoisi;
+	public String bombarderCase(){
+		String caseAttaquee = "";
 		Scanner scan = new Scanner(System.in);
 		
-		// On sélectionne d'abord un bateau parmi les navires restants
-		System.out.println("Veuillez sélectionner un bateau :");
-		for(int i = 0; i < flotte.length(); i++){
-			System.out.println(flotte[i].toString());
-		}
-		bateauChoisi = scan.next().charAt(0);
+		// affichage des bateaux et choix
+		Bateau bateauChoisi = choisirBateau(scan);
 		
-		// Le système affiche la liste des coups possibles (pour faciliter la lecture du joueur)
-		System.out.println("...");
-		// Puis le joueur choisit la case qu'il souhaite bombarder
-		// ...
+		// on récupère toutes les informations utiles sur le bateau choisi
+		/*
+		int vision = bateauChoisi.getChampTir();
+		char ligne = bateauChoisi.getCaseOrigine().getLigne();
+		int colonne = bateauChoisi.getCaseOrigine().getColonneInt();
+		
+		// affichage des coups possibles
+		String tirsPossibles = "";
+		System.out.println("Tirs possibles : ");
+		int j = ligne - vision+1;
+		int k = colonne;
+		if(j < 'a' - 0)
+			j = 'a' - 0;
+		for(int l = 1; l <= vision; l++){ // première moitié de la zone de tir possible (partie supérieure)
+			while(k < colonne + l && k < 10){
+				tirsPossibles = tirsPossibles + " " + intToChar(j) + "" + k;
+				k++;
+			}
+			j++;
+			if(colonne - l >= 0)
+				k = colonne - l;
+			else
+				k = 0;
+			tirsPossibles = tirsPossibles + "\n"; 
+		}
+		for(int l = vision-1; l >= 1; l--){ // deuxième moitié de la zone de tir possible (partie inférieure)
+			while(k < colonne + l && k < 10){
+				tirsPossibles = tirsPossibles + " " + intToChar(j) + "" + k;
+				k++;
+			}
+			j++;
+			if(colonne - (l-2) >= 0)
+				k = colonne - (l-2);
+			else
+				k = 0;
+			tirsPossibles = tirsPossibles + "\n"; 
+		}
+		System.out.println(tirsPossibles);
+		*/
+		
+		// choix d'une case
+		System.out.println("Sélectionner une case à attaquer");
+		/*
+		do{
+			caseAttaquee = caseAttaquee + selectionnerLigne(scan);
+			caseAttaquee = caseAttaquee + selectionnerColonne(scan);
+			if(tirsPossibles.indexOf(caseAttaquee.charAt(0)) < 0
+				|| tirsPossibles.indexOf(caseAttaquee.charAt(1)) != tirsPossibles.indexOf(caseAttaquee.charAt(0))+1)
+				System.out.println("Case impossible à atteindre, veuillez recommencer");
+		}while(tirsPossibles.indexOf(caseAttaquee.charAt(0)) < 0
+				|| tirsPossibles.indexOf(caseAttaquee.charAt(1)) != tirsPossibles.indexOf(caseAttaquee.charAt(0))+1);
+		*/
+		caseAttaquee = caseAttaquee + selectionnerLigne(scan);
+		caseAttaquee = caseAttaquee + selectionnerColonne(scan);
 		
 		return caseAttaquee;
 	}
-	*/
+	
+	/**
+	 * Méthode permettant au joueur de sélectionner un bateau parmis ceux qui lui restent
+	 * @param scan l'objet Scanner utilisé pour lire la saisie au clavier du joueur
+	 * @return le Bateau sélectionné
+	 */
+	public Bateau choisirBateau(Scanner scan){
+		String listeBateaux = "";
+		char choixBateau;
+		int i;
+		
+		System.out.println("Choisissez un navire (taper le chiffre associé):");
+		for(i = 0; grille.getBateau(i) != null; i++){
+			switch(grille.getBateau(i).getSymbole()){
+			case 'p' : System.out.println(i+". Porte-avion (p)"); break;
+			case 'c' : System.out.println(i+". Croiseur (c)"); break;
+			case 'r' : System.out.println(i+". Contre-torpilleur (r)"); break;
+			case 's' : System.out.println(i+". Sous-marin (s)"); break;
+			case 't' : System.out.println(i+". Torpilleur (t)"); break;
+			default : System.out.println(i+". Autre bateau");
+			}
+			listeBateaux = listeBateaux + grille.getBateau(i).getSymbole(); 
+		}
+		// choix
+		boolean choixFait = false;
+		do{
+			choixBateau = scan.next().charAt(0);
+			if(choixBateau - '0' >= 0 && choixBateau - '0' < i)
+				choixFait = true;
+			else
+				System.out.println("Mauvaise touche, vous avez tapé "+choixBateau);
+		}while(!choixFait);
+		
+		return grille.getBateau(choixBateau - '0');
+	}
 	
 	/**
 	 * Le joueur interroge sa grille pour savoir s'il reste au moins un bateau
@@ -157,6 +233,43 @@ public class Joueur {
 	public boolean aPerdu(){
 		// return !grille.resteBateaux();
 		return false;
+	}
+	
+	/**
+	 * Méthode permettant de transcrire un code entier en le caractère correspondant
+	 * @param i le code à transcrire
+	 * @return le caractère correspondant
+	 */
+	public char intToChar(int i){
+		char res = '.';
+		if(i >= 97){
+			switch(i){
+			case 97 : res = 'a'; break;
+			case 98 : res = 'b'; break;
+			case 99 : res = 'c'; break;
+			case 100 : res = 'd'; break;
+			case 101 : res = 'e'; break;
+			case 102 : res = 'f'; break;
+			case 103 : res = 'g'; break;
+			case 104 : res = 'h'; break;
+			case 105 : res = 'i'; break;
+			case 106 : res = 'j';
+			}
+		}else if(i>=65){
+			switch(i){
+			case 65 : res = 'A'; break;
+			case 66 : res = 'B'; break;
+			case 67 : res = 'C'; break;
+			case 68 : res = 'D'; break;
+			case 69 : res = 'E'; break;
+			case 70 : res = 'F'; break;
+			case 71 : res = 'G'; break;
+			case 72 : res = 'H'; break;
+			case 73 : res = 'I'; break;
+			case 74 : res = 'J';
+			}
+		}
+		return res;
 	}
 	
 	// ---------- Getters et Setters ----------
