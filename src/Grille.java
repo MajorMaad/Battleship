@@ -1,6 +1,17 @@
+/**
+ * Classe représentant une grille de jeu pour un joueur
+ * L'affichage de cette grille peut se faire de 2 façons :
+ * Avec ou sans l'affichage des bateaux (de cette maniere, un joueur verra sa grille avec les 
+ * bateaux et la grille de l'adversaire uniquement avec les coups joués)
+ * La grille est de taille 10x10
+ * Les lignes sont représentées par les lettres de A à J
+ * Les colonnes par les chiffres de 0 à 9
+ * @author Quentin Audinot
+ *
+ */
 
 public class Grille {
-	
+
 	private Case[][] cases;
 	private Bateau[] bateaux;
 
@@ -288,7 +299,7 @@ public class Grille {
 					int tampon_colonne = colonne;
 					
 					for (int i = 0; i < longueur; i++) {
-						if (this.cases[ligne][colonne].getEtat() == 'p' || this.cases[ligne][colonne].getEtat() == 'c' || this.cases[ligne][colonne].getEtat() == 'r' || this.cases[ligne][colonne].getEtat() == 's' || this.cases[ligne][colonne].getEtat() == 't')
+						if (this.cases[ligne][colonne].getEtat() != this.bateaux[position].getSymbole() && this.cases[ligne][colonne].getEtat() != ' ' && this.cases[ligne][colonne].getEtat() != 'x' && this.cases[ligne][colonne].getEtat() != 'o')
 							return false;
 						else {
 							switch (this.bateaux[position].getOrientation()) {
@@ -312,26 +323,43 @@ public class Grille {
 					
 					ligne = tampon_ligne;
 					colonne = tampon_colonne;
+					// Effacement de l'ancienne position du bateau
 					for (int i = 0; i < longueur; i++) {
 						this.cases[ancienne_ligne][ancienne_colonne].setEtat(' ');
+						
+						switch (this.bateaux[position].getOrientation()) {
+							case "nord":
+								ancienne_ligne -= 1;
+								break;
+							case "sud":
+								ancienne_ligne += 1;
+								break;
+							case "est":
+								ancienne_colonne += 1;
+								break;
+							case "ouest":
+								ancienne_colonne -= 1;
+								break;
+							default:
+								break;
+						}
+					}
+					// Mise a jour de la position du bateau
+					for (int i = 0; i < longueur; i++) {
 						this.cases[ligne][colonne].setEtat(this.bateaux[position].getSymbole());
 						
 						switch (this.bateaux[position].getOrientation()) {
 							case "nord":
 								ligne -= 1;
-								ancienne_ligne -= 1;
 								break;
 							case "sud":
 								ligne += 1;
-								ancienne_ligne += 1;
 								break;
 							case "est":
 								colonne += 1;
-								ancienne_colonne += 1;
 								break;
 							case "ouest":
 								colonne -= 1;
-								ancienne_colonne -= 1;
 								break;
 							default:
 								break;

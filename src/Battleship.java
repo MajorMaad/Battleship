@@ -22,6 +22,7 @@ public class Battleship {
 		
 		placerBateau("Porte-avion", j1, 0);
 		System.out.println("\n");
+		boolean ok = grille.deplacer_bateau("sud", 1, 0);
 		System.out.println(grille.affichageAttaque());
 		
 		placerBateau("Croiseur", j1, 1);
