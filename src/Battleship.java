@@ -15,7 +15,6 @@ public class Battleship {
 		Joueur j1 = new Joueur(1, grille);
 		JoueurIA j2 = new JoueurIA(2, grille2);
 		
-		
 		// Première phase : les placements
 		System.out.println("\n----- Phase de placement -----");
 		System.out.println("\nTOUR DU JOUEUR " + j1.getNum());
@@ -56,7 +55,12 @@ public class Battleship {
 		
 		
 		// Deuxième phase : boucle de jeu et attaque
-		// A venir
+		System.out.println("\n----- Phase d'attaque -----");
+		System.out.println("\nTOUR DU JOUEUR " + j1.getNum());
+		
+		System.out.println(j1.getGrille().affichageAttaque());
+		System.out.println(j2.getGrille().affichageDefense());
+		System.out.println("Case attaquée : " + j1.bombarderCase());
 	}
 	
 	/**
