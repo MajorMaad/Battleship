@@ -1,10 +1,17 @@
-
+/**
+ * Classe représentant une case
+ * Une grille (voir Grille.java) est composée de 10x10 cases
+ * Un bateau possèdera également une case d'origine
+ * Une case est caractérisée par une ligne, une colonne et un état (vide, avec un bateau dessus, touché, ...)
+ * @author Quentin Audinot
+ *
+ */
 public class Case {
 	
 	private char ligne;
 	private char colonne;
 	private char etat;
-
+	
 	public Case(char ligne, char colonne) {
 		if ("abcdefghij".indexOf(ligne) >= 0)
 			this.ligne = ligne;
@@ -30,6 +37,7 @@ public class Case {
 		return this.ligne;
 	}
 	
+	// ---------- Getters et Setters ----------
 	public int getLigneInt() {
 		int ligne = 0;
 		switch(this.ligne) {
