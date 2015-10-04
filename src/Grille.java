@@ -274,7 +274,9 @@ public class Grille {
 				int ancienne_colonne = this.bateaux[position].getCaseOrigine().getColonneInt();
 				int ligne = this.bateaux[position].getCaseOrigine().getLigneInt();
 				int colonne = this.bateaux[position].getCaseOrigine().getColonneInt();
+				String direction_bateau = this.bateaux[position].getOrientation();
 				
+				// Nouvelle valeure de la ligne ou colonne de la case d'origine
 				switch (direction) {
 					case "nord":
 						ligne -= nb;
@@ -292,13 +294,38 @@ public class Grille {
 						break;
 				}
 				
+				// On vérifie que le bateau de va pas dépasser
+				switch (direction_bateau) {
+					case "nord":
+						if ((ligne - longueur) < 0)
+							return false;
+						break;
+					case "sud":
+						if ((ligne + longueur) > 9)
+							return false;
+						break;
+					case "est":
+						if ((colonne + longueur) > 9)
+							return false;
+						break;
+					case "ouest":
+						if ((colonne - longueur) < 0)
+							return false;
+						break;
+					default:
+						break;
+				}	
+				
+				// Si la nouvelle case d'origine du bateau n'est plus dans la grille => deplacement impossible
 				if (ligne < 0 || ligne > 9 || colonne < 0 || colonne > 9)
 					return false;
 				else {
 					int tampon_ligne = ligne;
 					int tampon_colonne = colonne;
 					
+					// On va vérifier pour chaque case qu'on empiete pas sur un autre bateau
 					for (int i = 0; i < longueur; i++) {
+						// Si on empiete sur un autre bateau => deplacement impossible
 						if (this.cases[ligne][colonne].getEtat() != this.bateaux[position].getSymbole() && this.cases[ligne][colonne].getEtat() != ' ' && this.cases[ligne][colonne].getEtat() != 'x' && this.cases[ligne][colonne].getEtat() != 'o')
 							return false;
 						else {
