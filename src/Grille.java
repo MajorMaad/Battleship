@@ -401,6 +401,103 @@ public class Grille {
 	}
 	
 	/**
+	 * Méthode qui va changer l'état de la case attaquée (ou plusieurs case si c'est
+	 * un bateau qui a été touché)
+	 * @param stringCaseAttaquee => la case attaquée sous forme de string (exemple : "b8")
+	 * @return true si un bateau a été détruit
+	 * false si un bateau n'a pas pu être détruit ou si on a manqué
+	 */
+	public boolean receptionAttaque(String stringCaseAttaquee) {
+		boolean retour = false;
+		Case caseAttaquee = this.getCase(stringCaseAttaquee.charAt(0), stringCaseAttaquee.charAt(1));
+		int ligne = caseAttaquee.getLigneInt();
+		int colonne = caseAttaquee.getColonneInt();
+		
+		switch (caseAttaquee.getEtat()) {
+			case 'p':
+				retour = this.detruireBateau(0);
+				break;
+			case 'c':
+				retour = this.detruireBateau(1);
+				break;
+			case 'r':
+				retour = this.detruireBateau(2);
+				break;
+			case 's':
+				retour = this.detruireBateau(3);
+				break;
+			case 't':
+				retour = this.detruireBateau(4);
+				break;
+			default:
+				retour = false;
+				this.cases[ligne][colonne].setEtat('x');
+				break;
+		}
+		
+		return retour;
+	}
+	
+	/**
+	 * Méthode pour détruire un bateau de la grille
+	 * @param position => Position du bateau dans le tableau de la grille
+	 * @return true si le bateau a été détruit
+	 */
+	public boolean detruireBateau(int position) {
+		if (position >= 0 && position < 5) {
+			int ligne = this.bateaux[position].getCaseOrigine().getLigneInt();
+			int colonne = this.bateaux[position].getCaseOrigine().getColonneInt();
+			int longueur = this.bateaux[position].getLongueur();
+			String orientation = this.bateaux[position].getOrientation();
+			
+			// On remplace toute les casesdu bateau par des 'o' (pour touché)
+			for (int i = 0; i < longueur; i++) {
+				this.cases[ligne][colonne].setEtat('o');
+				
+				switch (orientation) {
+					case "nord":
+						ligne -= 1;
+						break;
+					case "sud":
+						ligne += 1;
+						break;
+					case "est":
+						colonne += 1;
+						break;
+					case "ouest":
+						colonne -= 1;
+						break;
+					default:
+						break;
+				}
+			}
+			
+			// On enlève ensuite le bateau du tableau
+			this.bateaux[position] = null;
+			return true;
+		} else return false;
+	}
+	
+	/**
+	 * Fonction pour recuperer une case du tableau de cases de la grille
+	 * @param ligne
+	 * @param colonne
+	 * @return La case correspondant a la ligne et colonne
+	 */
+	public Case getCase(char ligne, char colonne) {
+		Case caseRetour = null;
+		
+		for (int i = 0; i < this.cases.length; i++) {
+			for (int j = 0; j < this.cases[i].length; j++) {
+				if (this.cases[i][j].getLigne() == ligne && this.cases[i][j].getColonne() == colonne)
+					caseRetour = this.cases[i][j];
+			}
+		}
+		
+		return caseRetour;
+	}
+	
+	/**
 	 * Permet de récupérer le bateau à l'indice i du tableau s'il existe
 	 * @param i indice du bateau
 	 * @return le bateau stocké à l'indice i
