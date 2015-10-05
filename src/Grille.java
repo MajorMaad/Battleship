@@ -407,7 +407,7 @@ public class Grille {
 	 * @return true si un bateau a été détruit
 	 * false si un bateau n'a pas pu être détruit ou si on a manqué
 	 */
-	public boolean receptionAttaque(String stringCaseAttaquee) {
+	public boolean gererTire(String stringCaseAttaquee) {
 		boolean retour = false;
 		Case caseAttaquee = this.getCase(stringCaseAttaquee.charAt(0), stringCaseAttaquee.charAt(1));
 		int ligne = caseAttaquee.getLigneInt();
