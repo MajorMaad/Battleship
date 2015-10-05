@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 
 /**
@@ -39,7 +40,7 @@ public class JoueurIA extends Joueur {
 	public String bombarderCase(){
 		String caseAttaquee = "";
 		
-		Bateau bateauChoisi = choisirBateau();
+		//Bateau bateauChoisi = getGrille().getBateau(choisirBateau());
 		caseAttaquee = caseAttaquee + selectionAleatoire("abcdefghij");
 		caseAttaquee = caseAttaquee + selectionAleatoire("0123456789");
 		
@@ -47,17 +48,49 @@ public class JoueurIA extends Joueur {
 	}
 	
 	/**
-	 * Choix aléatoire du bateau parmis la flotte de l'IA
-	 * @return le bateau sélectionné
+	 * Méthode automatique permettant au joueur de déplacer un bateau choisi aléatoirement
+	 * Le programme vérifie si les entrées sont valides
 	 */
-	public Bateau choisirBateau(){
-		String listeBateaux = "";
-		Bateau choix;
+	public void deplacerBateau(){
+		String orientation;
+		int deplacement = 0;
+		boolean deplacementOk;
+		
+		do{
+			int indiceBateau = choisirBateau();
+			System.out.println("indice bateau = " + indiceBateau);
+			
+			orientation = selectionAleatoire("nseo")+"";
+			switch(orientation){
+			case "n" : orientation = "nord"; break;
+			case "s" : orientation = "sud"; break;
+			case "e" : orientation = "est"; break;
+			case "o" : orientation = "ouest";
+			}
+			System.out.println("orientation = " + orientation);
+			
+			deplacement = selectionAleatoire("12") - '0';
+			System.out.println("déplacement = " + deplacement);
+			
+			deplacementOk = getGrille().deplacer_bateau(orientation, deplacement, indiceBateau);
+			if(deplacementOk)
+				System.out.println("Bateau déplacé");
+			System.out.println("deplacement OK ? " + deplacementOk);
+		}while(!deplacementOk);
+	}
+	
+	/**
+	 * Choix aléatoire du bateau parmis la flotte de l'IA
+	 * @return l'indice du bateau sélectionné
+	 */
+	private int choisirBateau(){
+		String listeIndiceBateaux = "";
+		int choix;
 		
 		for(int i = 0; this.getGrille().getBateau(i) != null; i++){
-			listeBateaux = listeBateaux + this.getGrille().getBateau(i).getSymbole(); 
+			listeIndiceBateaux = listeIndiceBateaux + i; 
 		}
-		choix = this.getGrille().getBateau(selectionAleatoire(listeBateaux) - '0');
+		choix = selectionAleatoire(listeIndiceBateaux) - '0';
 		
 		return choix;
 	}
