@@ -57,7 +57,7 @@ public class Joueur {
 		Scanner scan = new Scanner(System.in);
 		
 		// affichage des bateaux et choix
-		Bateau bateauChoisi = grille.getBateau(choisirBateau(scan));
+		//Bateau bateauChoisi = grille.getBateau(choisirBateau(scan));
 		
 		// on récupère toutes les informations utiles sur le bateau choisi
 		/*
@@ -252,7 +252,6 @@ public class Joueur {
 	 * @return l'indice du bateau sélectionné dans le tableau bateaux de la grille
 	 */
 	private int choisirBateau(Scanner scan){
-		String listeBateaux = "";
 		char choixBateau;
 		int i;
 		
@@ -266,7 +265,6 @@ public class Joueur {
 			case 't' : System.out.println(i+". Torpilleur (t)"); break;
 			default : System.out.println(i+". Autre bateau");
 			}
-			listeBateaux = listeBateaux + grille.getBateau(i).getSymbole(); 
 		}
 		// choix
 		boolean choixFait = false;
