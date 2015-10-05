@@ -1,3 +1,9 @@
+/**
+ * Classe représentant un bateau sur la grille
+ * Un bateau est caractérisé par sa longueur, sa portée (champ_tir), une case d'origine, sa direction et un symbole
+ * @author Quentin Audinot
+ *
+ */
 
 public class Bateau {
 	
@@ -6,7 +12,15 @@ public class Bateau {
 	private Case case_origine;
 	private String orientation;
 	private char symbole;
-
+	
+	/**
+	 * Constructeur du bateau
+	 * @param longueur => Longueur du bateau, ici entre 2 et 5
+	 * @param champ_tir => Portée du bateau
+	 * @param case_origine => La case correspondant à l'arriere du bateau
+	 * @param orientation => nord sud est ouest
+	 * @param symbole => lettre que l'on va afficher sur la grille pour différencier les différents bateaux
+	 */
 	public Bateau(int longueur, int champ_tir, Case case_origine, String orientation, char symbole) {
 		
 		if (longueur > 1 && longueur <= 5)
@@ -45,6 +59,11 @@ public class Bateau {
 		return this.symbole;
 	}
 	
+	/**
+	 * Méthode de déplacement du bateau => On lui attribue une nouvelle case d'origine
+	 * @param direction => la direction du déplacement
+	 * @param nb => Nombre de case de déplacement (1 ou 2)
+	 */
 	public void deplacer(String direction, int nb) {
 		Case nouvelle_case;
 		char etat = this.case_origine.getEtat();
