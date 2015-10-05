@@ -1,14 +1,24 @@
-
+/**
+ * Classe qui gérer l'affichage et la partie
+ * @author Quentin Audinot
+ *
+ */
 public class Vue {
 	
 	private Joueur joueur1;
 	private Joueur joueur2;
 	
+	/**
+	 * Constructeur de la Vue : un joueur et un IA
+	 */
 	public Vue() {
 		this.joueur1 = new Joueur(1, new Grille());
 		this.joueur2 = new JoueurIA(2, new Grille());
 	}
 	
+	/**
+	 * Méthode de gestion du jeu en console
+	 */
 	public void initVue() {
 		// Première phase : les placements
 		// Joueur 1
