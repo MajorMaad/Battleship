@@ -1,130 +1,57 @@
 /**
- * Classe qui gére l'affichage et la partie
- * @author Quentin Audinot
+ * Classe qui gére l'affichage
+ * @author Quentin Audinot & Marie Darrigol
  *
  */
 public class Vue {
 	
-	private Joueur joueur1;
-	private Joueur joueur2;
-	
-	/**
-	 * Constructeur de la Vue : un joueur et un IA
-	 */
-	public Vue() {
-		this.joueur1 = new Joueur(1, new Grille());
-		this.joueur2 = new JoueurIA(2, new Grille());
+	public void affichageTitre(){
+		System.out.println("----------------------------------------");
+		System.out.println("------------ Battleship 2.0 ------------");
+		System.out.println("- par Quentin Audinot & Marie Darrigol -");
+		System.out.println("-------------- 2015, UQAC --------------");
+		System.out.println("----------------------------------------");
 	}
 	
 	/**
-	 * Méthode de gestion du jeu en console
+	 * Affichage indiquant à quel joueur appartient le tour
+	 * @param n numéro du joueur
 	 */
-	public void initVue() {
-		// Première phase : les placements
-		// Joueur 1
-		System.out.println("\n----- Phase de placement -----");
-		System.out.println("\nTOUR DU JOUEUR " + this.joueur1.getNum());
-		
-		placerBateau("Porte-avion", this.joueur1, 0);
-		System.out.println("\n");
-		System.out.println(this.joueur1.getGrille().affichageAttaque());
-		
-		placerBateau("Croiseur", this.joueur1, 1);
-		System.out.println("\n");
-		System.out.println(this.joueur1.getGrille().affichageAttaque());
-		
-		placerBateau("Contre-torpilleur", this.joueur1, 2);
-		System.out.println("\n");
-		System.out.println(this.joueur1.getGrille().affichageAttaque());
-		
-		placerBateau("Sous-marin", this.joueur1, 3);
-		System.out.println("\n");
-		System.out.println(this.joueur1.getGrille().affichageAttaque());
-		
-		placerBateau("Torpilleur", this.joueur1, 4);
-		System.out.println("\n");
-		System.out.println(this.joueur1.getGrille().affichageAttaque());
-		
-		
-		// Joueur 2
-		System.out.println("\nTOUR DU JOUEUR " + this.joueur2.getNum());
-		System.out.println("Placement de la flotte...");
-		placerBateau("Porte-avion", this.joueur2, 0);
-		placerBateau("Croiseur", this.joueur2, 1);
-		placerBateau("Contre-torpilleur", this.joueur2, 2);
-		placerBateau("Sous-marin", this.joueur2, 3);
-		placerBateau("Torpilleur", this.joueur2, 4);
-		System.out.println("Placement terminé");
-		// juste pour le debug, devra être enlevé pour l'IA dans la version finale
-		System.out.println(this.joueur2.getGrille().affichageAttaque());
-		
-		
-		// Deuxième phase : boucle de jeu et attaque
-		/*
+	public void affichageTourJoueurCourant(int n){
+		System.out.println("\n----- TOUR DU JOUEUR " + n + " -----");
+	}
+	
+	public void affichageGrilleAttaque(Grille g){
+		System.out.println("\n" + g.affichageAttaque());
+	}
+	
+	public void affichageGrilleDefense(Grille g){
+		System.out.println("\n" + g.affichageDefense());
+	}
+	
+	public void affichageFlotteIA(Grille g){
+		System.out.println("\n----- Placement de la flotte terminé -----");
+	}
+	
+	public void affichageAttaque(int n, Grille g1, Grille g2, boolean estIA){
+		affichageTourJoueurCourant(n);
 		System.out.println("\n----- Phase d'attaque -----");
-		System.out.println("\nTOUR DU JOUEUR " + j1.getNum());
-		System.out.println(j1.getGrille().affichageAttaque());
-		System.out.println(j2.getGrille().affichageDefense());
-		System.out.println("Case attaquée : " + j1.bombarderCase());
-		
-		System.out.println("\nTOUR DU JOUEUR " + j2.getNum());
-		System.out.println(j2.getGrille().affichageAttaque());	// A enlever pour la version finale
-		System.out.println(j1.getGrille().affichageDefense());	// idem
-		System.out.println("Case attaquée : " + j2.bombarderCase());
-		*/
-		
-		System.out.println("\n----- Phase de déplacement -----");
-		/*
-		System.out.println("\nTOUR DU JOUEUR " + j1.getNum());
-		System.out.println(j1.getGrille().affichageAttaque());
-		j1.deplacerBateau();
-		System.out.println(j1.getGrille().affichageAttaque());
-		*/
-		
-		System.out.println("\nTOUR DU JOUEUR " + this.joueur2.getNum());
-		System.out.println(this.joueur2.getGrille().affichageAttaque());
-		this.joueur2.deplacerBateau();
-		System.out.println(this.joueur2.getGrille().affichageAttaque());
+		if(!estIA){
+			affichageGrilleAttaque(g1);
+			affichageGrilleDefense(g2);
+		}
 	}
 	
-	/**
-	 * Fonction permettant de créer et placer un bateau en fonction des informations données par le joueur
-	 * La saisie est redemandée tant qu'une information est erronée ou que le bateau ne peut pas être placé
-	 * @param nom nom du bateau à placer
-	 * @param j joueur qui va placer le bateau
-	 * @param num numéro du bateau à placer pour le joueur
-	 */
-	public void placerBateau(String nom, Joueur j, int num){
-		String infosBateau;
-		String orientation = "";
-		Bateau b;
-		boolean bateauPlace = false;
-		
-		// Si le joueur en question est une IA, on n'affiche pas les messages
-		if(!(j instanceof JoueurIA))
-			System.out.println(nom + " en cours de placement");
-		do{
-			infosBateau = j.placerBateau();
-			switch(infosBateau.charAt(2)){
-			case 'n' : orientation = "nord"; break;
-			case 's' : orientation = "sud"; break;
-			case 'e' : orientation = "est"; break;
-			case 'o' : orientation = "ouest";
-			}
-			switch(nom){
-			case "Porte-avion" : b = new PorteAvion(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
-			case "Croiseur" : b = new Croiseur(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
-			case "Contre-torpilleur" : b = new ContreTorpilleur(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
-			case "Sous-marin" : b = new SousMarin(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
-			case "Torpilleur" : b = new Torpilleur(new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation); break;
-			default : b = new Bateau(1, 1, new Case(infosBateau.charAt(0), infosBateau.charAt(1)), orientation, 'b');
-			}
-			bateauPlace = j.getGrille().ajouterBateau(b, num);
-			if(!bateauPlace && !(j instanceof JoueurIA))
-				System.out.println("Erreur de placement, veuillez recommencer");
-		}while(!bateauPlace);
-		// Devra être enlevé pour l'IA dans la version finale, on le garde juste pour le debug
-		System.out.println(nom + " placé en "+infosBateau.charAt(0) + infosBateau.charAt(1) + " " + orientation);
+	public void affichageDeplacement(int n, Grille g, boolean estIA){
+		affichageTourJoueurCourant(n);
+		System.out.println("\n----- Phase de déplacement -----");
+		if(!estIA)
+			affichageGrilleAttaque(g);
+	}
+	
+	public void affichageVictoire(int n){
+		System.out.println("\n----- Victoire du joueur "+ n +" ! Félicitations ! -----");
+		System.out.println("-------------- Merci d'avoir joué ! --------------");
 	}
 
 }
