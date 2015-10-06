@@ -67,15 +67,12 @@ public class JoueurIA extends Joueur {
 			case "e" : orientation = "est"; break;
 			case "o" : orientation = "ouest";
 			}
-			System.out.println("orientation = " + orientation);
 			
 			deplacement = selectionAleatoire("12") - '0';
-			System.out.println("déplacement = " + deplacement);
 			
 			deplacementOk = getGrille().deplacer_bateau(orientation, deplacement, indiceBateau);
 			if(deplacementOk)
 				System.out.println("Bateau déplacé");
-			System.out.println("deplacement OK ? " + deplacementOk);
 		}while(!deplacementOk);
 	}
 	
