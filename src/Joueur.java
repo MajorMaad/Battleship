@@ -85,7 +85,7 @@ public class Joueur {
 		k = colonne - vision+1;
 		if(k < 0)
 			k = 0;
-		while(k < colonne + vision && k < 10){
+		while(k < colonne + vision && k <= 9){
 			tirsPossibles += " " + intToChar(j) + "" + k;
 			k++;
 		}
@@ -94,7 +94,7 @@ public class Joueur {
 		// Enfin, on récupère les cases situées au-dessous du bateau
 		k = colonne;
 		j++;
-		while(j < ligne + vision && j < 'j'){
+		while(j < ligne + vision && j <= 'j'){
 			tirsPossibles += " " + intToChar(j) + "" + k;
 			j++;
 		}
@@ -157,6 +157,28 @@ public class Joueur {
 			}
 		}
 		return res;
+	}
+	
+	public boolean demandeDeplacement(){
+		Scanner scan = new Scanner(System.in);
+		char reponse;
+		boolean res = false;
+		
+		do{
+			System.out.println("Voulez-vous déplacer un bateau ?");
+			System.out.println("(Tapez o pour Oui, n pour Non)");
+			reponse = scan.next().charAt(0);
+			if(reponse == 'o' || reponse == 'O'){
+				res = true;
+			}else if(reponse == 'n' || reponse == 'N'){
+				res = false;
+			}else{
+				System.out.println("Mauvaise touche, vous avez tapé " + reponse);
+			}
+		}while(reponse != 'o' && reponse != 'n' && reponse != 'O' && reponse != 'N');
+		
+		return res;
+		
 	}
 	
 	/**

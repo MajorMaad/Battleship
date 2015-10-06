@@ -65,9 +65,12 @@ public class Battleship {
 				// Si le tir précédent n'a pas abouti, le nouveau joueur déplace un bateau
 				if(!resultatTir){
 					partie.affichageDeplacement(joueurCourant.getNum(), joueurCourant.getGrille(), (joueurCourant instanceof JoueurIA));
-					joueurCourant.deplacerBateau();
-					if(!(joueurCourant instanceof JoueurIA))
+					if(!(joueurCourant instanceof JoueurIA)){
+						if(joueurCourant.demandeDeplacement()){
+							joueurCourant.deplacerBateau();
+						}
 						partie.affichageGrilleAttaque(joueurCourant.getGrille());
+					}
 				}
 			}
 		}
