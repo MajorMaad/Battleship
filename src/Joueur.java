@@ -58,15 +58,103 @@ public class Joueur {
 		String caseAttaquee = "";
 		Scanner scan = new Scanner(System.in);
 		
+		// affichage des bateaux et choix
+		Bateau bateauChoisi = grille.getBateau(choisirBateau(scan));
+		
+		// on récupère toutes les informations utiles sur le bateau choisi
+		int vision = bateauChoisi.getChampTir();
+		char ligne = bateauChoisi.getCaseOrigine().getLigne();
+		int colonne = bateauChoisi.getCaseOrigine().getColonneInt();
+		
+		// affichage des coups possibles
+		String tirsPossibles = "";
+		System.out.println("Tirs possibles : ");
+		
+		// On commence par les cases au-dessus du bateau
+		int j = ligne - vision+1;
+		int k = colonne;
+		if(j < 'a' - 0)
+			j = 'a' - 0;
+		while(j < ligne){
+			tirsPossibles += " " + intToChar(j) + "" + k;
+			j++;
+		}
+		tirsPossibles += "\n";
+		
+		// On s'occupe ensuite des cases situées sur la même ligne que le bateau
+		k = colonne - vision+1;
+		if(k < 0)
+			k = 0;
+		while(k < colonne + vision){
+			tirsPossibles += " " + intToChar(j) + "" + k;
+			k++;
+		}
+		tirsPossibles += "\n";
+		
+		// Enfin, on récupère les cases situées au-dessous du bateau
+		k = colonne;
+		j++;
+		while(j < ligne + vision){
+			tirsPossibles += " " + intToChar(j) + "" + k;
+			j++;
+		}
+		
+		// On affiche ensuite la liste des tirs pour l'utilisateur
+		System.out.println(tirsPossibles);
+		
 		// choix d'une case
 		System.out.println("Sélectionner une case à attaquer");
-		
-		caseAttaquee = caseAttaquee + selectionnerLigne(scan);
-		caseAttaquee = caseAttaquee + selectionnerColonne(scan);
-		
-		System.out.println("Case attaquée : " + caseAttaquee);
+		boolean tirValide = false;
+		do{
+			caseAttaquee = caseAttaquee + selectionnerLigne(scan);
+			caseAttaquee = caseAttaquee + selectionnerColonne(scan);
+			
+			if(caseAttaquee.charAt(0) - 'a' > (ligne - 'a') - vision && caseAttaquee.charAt(0) - 'a' < (ligne - 'a') + vision
+					&& caseAttaquee.charAt(1) - '0' > colonne - vision && caseAttaquee.charAt(1) - '0' < colonne + vision){
+				System.out.println("Case attaquée : " + caseAttaquee);
+				tirValide = true;
+			}else
+				System.out.println("Case impossible à atteindre, veuillez recommencer");
+		}while(!tirValide);
 		
 		return caseAttaquee;
+	}
+	
+	/**
+	 * Méthode permettant de transcrire un code entier en le caractère correspondant
+	 * @param i le code à transcrire
+	 * @return le caractère correspondant
+	 */
+	private char intToChar(int i){
+		char res = '.';
+		if(i >= 97){
+			switch(i){
+				case 97 : res = 'a'; break;
+				case 98 : res = 'b'; break;
+				case 99 : res = 'c'; break;
+				case 100 : res = 'd'; break;
+				case 101 : res = 'e'; break;
+				case 102 : res = 'f'; break;
+				case 103 : res = 'g'; break;
+				case 104 : res = 'h'; break;
+				case 105 : res = 'i'; break;
+				case 106 : res = 'j';
+			}
+		}else if(i>=65){
+			switch(i){
+				case 65 : res = 'A'; break;
+				case 66 : res = 'B'; break;
+				case 67 : res = 'C'; break;
+				case 68 : res = 'D'; break;
+				case 69 : res = 'E'; break;
+				case 70 : res = 'F'; break;
+				case 71 : res = 'G'; break;
+				case 72 : res = 'H'; break;
+				case 73 : res = 'I'; break;
+				case 74 : res = 'J';
+			}
+		}
+		return res;
 	}
 	
 	/**
@@ -224,7 +312,7 @@ public class Joueur {
 		boolean choixFait = false;
 		do{
 			choixBateau = scan.next().charAt(0);
-			if(choixBateau - '0' >= 0 && choixBateau - '0' < i)
+			if(choixBateau - '0' >= 0 && choixBateau - '0' < i && grille.getBateau(choixBateau - '0') != null)
 				choixFait = true;
 			else
 				System.out.println("Mauvaise touche, vous avez tapé "+choixBateau);
