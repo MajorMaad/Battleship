@@ -268,7 +268,7 @@ public class Grille {
 	 */
 	public boolean deplacer_bateau(String direction, int nb, int position) {
 		if (direction == "nord" || direction == "sud" || direction == "est" || direction == "ouest") {
-			if (nb > 0 && nb <= 2 && position < 5) {
+			if (nb > 0 && nb <= 2 && position < 5 && position >= 0) {
 				int longueur = this.bateaux[position].getLongueur();
 				int ancienne_ligne = this.bateaux[position].getCaseOrigine().getLigneInt();
 				int ancienne_colonne = this.bateaux[position].getCaseOrigine().getColonneInt();
@@ -297,19 +297,19 @@ public class Grille {
 				// On vérifie que le bateau de va pas dépasser
 				switch (direction_bateau) {
 					case "nord":
-						if ((ligne - longueur) < 0)
+						if ((ligne - longueur + 1) < 0)
 							return false;
 						break;
 					case "sud":
-						if ((ligne + longueur) > 9)
+						if ((ligne + longueur - 1) > 9)
 							return false;
 						break;
 					case "est":
-						if ((colonne + longueur) > 9)
+						if ((colonne + longueur - 1) > 9)
 							return false;
 						break;
 					case "ouest":
-						if ((colonne - longueur) < 0)
+						if ((colonne - longueur + 1) < 0)
 							return false;
 						break;
 					default:
