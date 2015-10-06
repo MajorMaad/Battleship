@@ -1,5 +1,5 @@
 /**
- * Classe qui gérer l'affichage et la partie
+ * Classe qui gére l'affichage et la partie
  * @author Quentin Audinot
  *
  */
