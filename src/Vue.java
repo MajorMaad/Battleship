@@ -49,13 +49,11 @@ public class Vue {
 	
 	/**
 	 * Permet d'afficher le mode attaque
-	 * @param n le numéro de joueur attaquant
 	 * @param g1 la grille de l'attaquant
 	 * @param g2 la grille de l'attaqué
 	 * @param estIA indique si le joueur attaquant est une IA : si c'est le cas, les grilles ne seront pas affichées
 	 */
-	public void affichageAttaque(int n, Grille g1, Grille g2, boolean estIA){
-		affichageTourJoueurCourant(n);
+	public void affichageAttaque(Grille g1, Grille g2, boolean estIA){
 		System.out.println("\n----- Phase d'attaque -----");
 		if(!estIA){
 			affichageGrilleAttaque(g1);
@@ -65,12 +63,10 @@ public class Vue {
 	
 	/**
 	 * Permet d'afficher le mode déplacement
-	 * @param n le numéro du joueur qui doit déplacer un bateau
 	 * @param g la grille du joueur
 	 * @param estIA indique si le joueur en question est une IA : si c'est le cas, la grille n'est pas affichée
 	 */
-	public void affichageDeplacement(int n, Grille g, boolean estIA){
-		affichageTourJoueurCourant(n);
+	public void affichageDeplacement(Grille g, boolean estIA){
 		System.out.println("\n----- Phase de déplacement -----");
 		if(!estIA)
 			affichageGrilleAttaque(g);

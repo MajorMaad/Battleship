@@ -9,10 +9,11 @@
 
 public class Battleship {
 	
-	private static Joueur joueur1;
-	private static Joueur joueur2;
-	private static Joueur joueurCourant;
-	private static Joueur joueurInactif;
+	private static Joueur joueur1;				// le joueur humain
+	private static Joueur joueur2;				// l'IA
+	private static Joueur joueurCourant;		// représente le joueur qui doit jouer le prochain coup
+	private static Joueur joueurInactif;		// représente le joueur qui va se faire attaquer
+	private static boolean debutTour;			// indique si on doit afficher l'annonce du début de tour
 	private static final String[] FLOTTE = {"Porte-avion", "Croiseur", "Contre-torpilleur", "Sous-marin", "Torpilleur"};
 	
 	public static void main(String[] args) {
@@ -52,7 +53,11 @@ public class Battleship {
 		while(!joueurCourant.aPerdu() && !joueurInactif.aPerdu()){
 			
 			// Attaque
-			partie.affichageAttaque(joueurCourant.getNum(), joueurCourant.getGrille(),
+			if(debutTour){
+				partie.affichageTourJoueurCourant(joueurCourant.getNum());
+				debutTour = !debutTour;
+			}
+			partie.affichageAttaque(joueurCourant.getGrille(),
 					joueurInactif.getGrille(), (joueurCourant instanceof JoueurIA));
 			
 			// On met de côté le réultat du tir
@@ -64,7 +69,9 @@ public class Battleship {
 				toggleJoueurCourant();
 				// Si le tir précédent n'a pas abouti, le nouveau joueur déplace un bateau
 				if(!resultatTir){
-					partie.affichageDeplacement(joueurCourant.getNum(), joueurCourant.getGrille(), (joueurCourant instanceof JoueurIA));
+					partie.affichageTourJoueurCourant(joueurCourant.getNum());
+					debutTour = !debutTour;
+					partie.affichageDeplacement(joueurCourant.getGrille(), (joueurCourant instanceof JoueurIA));
 					if(!(joueurCourant instanceof JoueurIA)){
 						if(joueurCourant.demandeDeplacement()){
 							joueurCourant.deplacerBateau();
@@ -92,6 +99,7 @@ public class Battleship {
 		}
 		joueur1.toggleEnJeu();
 		joueur2.toggleEnJeu();
+		debutTour = !debutTour;
 	}
 	
 	/**
