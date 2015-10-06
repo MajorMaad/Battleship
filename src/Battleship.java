@@ -1,4 +1,12 @@
 
+/**
+ * Classe principale qui va gérer toute la partie
+ * C'est elle qui va créer les joueurs, les grilles et qui va faire appel à la Vue pour les affichages
+ * C'est dans cette classe que se trouve la boucle de jeu
+ * @author Marie Darrigol & Quentin Audinot
+ *
+ */
+
 public class Battleship {
 	
 	private static Joueur joueur1;
@@ -9,9 +17,7 @@ public class Battleship {
 	
 	public static void main(String[] args) {
 		
-		/**
-		 * Initialisation des paramètres
-		 */
+		//Initialisation des paramètres
 		joueur1 = new Joueur(1, new Grille());
 		joueur2 = new JoueurIA(2, new Grille());
 		Vue partie = new Vue();
@@ -35,7 +41,7 @@ public class Battleship {
 				}
 			}
 			if(joueurCourant instanceof JoueurIA){
-				partie.affichageFlotteIA(joueurCourant.getGrille());
+				partie.affichageFlotteIA();
 			}
 			
 			toggleJoueurCourant();
@@ -70,7 +76,7 @@ public class Battleship {
 	}
 	
 	/**
-	 * Permet de changer de joueur actif
+	 * Permet de changer le statut des joueurs
 	 * Si le joueur 1 était actif jusqu'à présent, on met le joueur 2 en actif et le 1 en inactif et vice versa
 	 */
 	public static void toggleJoueurCourant(){

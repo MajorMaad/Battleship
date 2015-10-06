@@ -349,6 +349,9 @@ public class Joueur {
 		return this.grille;
 	}
 	
+	/**
+	 * Permet de changer l'état du joueur (s'il était actif, il devient inactif et vice versa)
+	 */
 	public void toggleEnJeu(){
 		this.enJeu = !enJeu;
 	}
