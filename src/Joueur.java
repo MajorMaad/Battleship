@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Vector;
 
 /**
  * La classe représentant les participants du jeu (personnes physiques)
@@ -18,6 +17,7 @@ public class Joueur {
 	
 	/**
 	 * Le constructeur de base du joueur, où on lui fournit une grille de jeu
+	 * Par défaut, on indique que le joueur est inactif
 	 * @param num le numéro qui sera associé au joueur tout au long de la partie
 	 * @param grille une grille vide
 	 */
@@ -58,63 +58,13 @@ public class Joueur {
 		String caseAttaquee = "";
 		Scanner scan = new Scanner(System.in);
 		
-		// affichage des bateaux et choix
-		//Bateau bateauChoisi = grille.getBateau(choisirBateau(scan));
-		
-		// on récupère toutes les informations utiles sur le bateau choisi
-		/*
-		int vision = bateauChoisi.getChampTir();
-		char ligne = bateauChoisi.getCaseOrigine().getLigne();
-		int colonne = bateauChoisi.getCaseOrigine().getColonneInt();
-		
-		// affichage des coups possibles
-		String tirsPossibles = "";
-		System.out.println("Tirs possibles : ");
-		int j = ligne - vision+1;
-		int k = colonne;
-		if(j < 'a' - 0)
-			j = 'a' - 0;
-		for(int l = 1; l <= vision; l++){ // première moitié de la zone de tir possible (partie supérieure)
-			while(k < colonne + l && k < 10){
-				tirsPossibles = tirsPossibles + " " + intToChar(j) + "" + k;
-				k++;
-			}
-			j++;
-			if(colonne - l >= 0)
-				k = colonne - l;
-			else
-				k = 0;
-			tirsPossibles = tirsPossibles + "\n"; 
-		}
-		for(int l = vision-1; l >= 1; l--){ // deuxième moitié de la zone de tir possible (partie inférieure)
-			while(k < colonne + l && k < 10){
-				tirsPossibles = tirsPossibles + " " + intToChar(j) + "" + k;
-				k++;
-			}
-			j++;
-			if(colonne - (l-2) >= 0)
-				k = colonne - (l-2);
-			else
-				k = 0;
-			tirsPossibles = tirsPossibles + "\n"; 
-		}
-		System.out.println(tirsPossibles);
-		*/
-		
 		// choix d'une case
 		System.out.println("Sélectionner une case à attaquer");
-		/*
-		do{
-			caseAttaquee = caseAttaquee + selectionnerLigne(scan);
-			caseAttaquee = caseAttaquee + selectionnerColonne(scan);
-			if(tirsPossibles.indexOf(caseAttaquee.charAt(0)) < 0
-				|| tirsPossibles.indexOf(caseAttaquee.charAt(1)) != tirsPossibles.indexOf(caseAttaquee.charAt(0))+1)
-				System.out.println("Case impossible à atteindre, veuillez recommencer");
-		}while(tirsPossibles.indexOf(caseAttaquee.charAt(0)) < 0
-				|| tirsPossibles.indexOf(caseAttaquee.charAt(1)) != tirsPossibles.indexOf(caseAttaquee.charAt(0))+1);
-		*/
+		
 		caseAttaquee = caseAttaquee + selectionnerLigne(scan);
 		caseAttaquee = caseAttaquee + selectionnerColonne(scan);
+		
+		System.out.println("Case attaquée : " + caseAttaquee);
 		
 		return caseAttaquee;
 	}
@@ -289,43 +239,6 @@ public class Joueur {
 	public boolean aPerdu(){
 		// return !grille.resteBateaux();
 		return false;
-	}
-	
-	/**
-	 * Méthode permettant de transcrire un code entier en le caractère correspondant
-	 * @param i le code à transcrire
-	 * @return le caractère correspondant
-	 */
-	private char intToChar(int i){
-		char res = '.';
-		if(i >= 97){
-			switch(i){
-			case 97 : res = 'a'; break;
-			case 98 : res = 'b'; break;
-			case 99 : res = 'c'; break;
-			case 100 : res = 'd'; break;
-			case 101 : res = 'e'; break;
-			case 102 : res = 'f'; break;
-			case 103 : res = 'g'; break;
-			case 104 : res = 'h'; break;
-			case 105 : res = 'i'; break;
-			case 106 : res = 'j';
-			}
-		}else if(i>=65){
-			switch(i){
-			case 65 : res = 'A'; break;
-			case 66 : res = 'B'; break;
-			case 67 : res = 'C'; break;
-			case 68 : res = 'D'; break;
-			case 69 : res = 'E'; break;
-			case 70 : res = 'F'; break;
-			case 71 : res = 'G'; break;
-			case 72 : res = 'H'; break;
-			case 73 : res = 'I'; break;
-			case 74 : res = 'J';
-			}
-		}
-		return res;
 	}
 	
 	// ---------- Getters et Setters ----------
