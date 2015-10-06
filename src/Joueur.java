@@ -14,6 +14,7 @@ public class Joueur {
 
 	private int num;					// numéro du joueur
 	private Grille grille;				// représente la grille de jeu du joueur
+	private boolean enJeu;				// indique si le joueur est en train de joueur ou non
 	
 	/**
 	 * Le constructeur de base du joueur, où on lui fournit une grille de jeu
@@ -24,6 +25,7 @@ public class Joueur {
 		super();
 		this.num = num;
 		this.grille = grille;
+		this.enJeu = false;
 	}
 	
 	/**
@@ -333,5 +335,13 @@ public class Joueur {
 	
 	public Grille getGrille(){
 		return this.grille;
+	}
+	
+	public void toggleEnJeu(){
+		this.enJeu = !enJeu;
+	}
+	
+	public boolean estEnJeu(){
+		return this.enJeu;
 	}
 }
