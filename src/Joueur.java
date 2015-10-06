@@ -113,8 +113,10 @@ public class Joueur {
 					&& caseAttaquee.charAt(1) - '0' > colonne - vision && caseAttaquee.charAt(1) - '0' < colonne + vision){
 				System.out.println("Case attaquée : " + caseAttaquee);
 				tirValide = true;
-			}else
+			}else{
 				System.out.println("Case impossible à atteindre, veuillez recommencer");
+				caseAttaquee = "";
+			}
 		}while(!tirValide);
 		
 		return caseAttaquee;
@@ -195,8 +197,10 @@ public class Joueur {
 			}
 			
 			deplacementOk = grille.deplacer_bateau(orientation, deplacement, indiceBateau);
-			if(!deplacementOk)
+			if(!deplacementOk){
 				System.out.println("Erreur de déplacement, veuillez recommencer");
+				deplacement = 0;
+			}
 			else
 				System.out.println("Bateau déplacé");
 		}while(!deplacementOk);
