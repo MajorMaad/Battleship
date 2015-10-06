@@ -57,7 +57,6 @@ public class JoueurIA extends Joueur {
 		
 		do{
 			int indiceBateau = choisirBateau();
-			System.out.println("indice bateau = " + indiceBateau);
 			
 			orientation = selectionAleatoire("nseo")+"";
 			switch(orientation){
@@ -83,8 +82,10 @@ public class JoueurIA extends Joueur {
 		String listeIndiceBateaux = "";
 		int choix;
 		
-		for(int i = 0; this.getGrille().getBateau(i) != null; i++){
-			listeIndiceBateaux = listeIndiceBateaux + i; 
+		for(int i = 0; i < this.getGrille().getNbBateaux(); i++){
+			if(this.getGrille().getBateau(i) != null){
+				listeIndiceBateaux = listeIndiceBateaux + i;
+			} 
 		}
 		choix = selectionAleatoire(listeIndiceBateaux) - '0';
 		

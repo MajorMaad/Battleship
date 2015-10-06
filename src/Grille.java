@@ -508,5 +508,13 @@ public class Grille {
 			res = this.bateaux[i];
 		return res;
 	}
+	
+	/**
+	 * Permet de connaître le nombre de bateaux initial
+	 * @return le nombre de bateaux (longueur du tableau bateaux)
+	 */
+	public int getNbBateaux(){
+		return bateaux.length;
+	}
 
 }

@@ -208,14 +208,16 @@ public class Joueur {
 		int i;
 		
 		System.out.println("Choisissez un navire (taper le chiffre associé):");
-		for(i = 0; grille.getBateau(i) != null; i++){
-			switch(grille.getBateau(i).getSymbole()){
-			case 'p' : System.out.println(i+". Porte-avion (p)"); break;
-			case 'c' : System.out.println(i+". Croiseur (c)"); break;
-			case 'r' : System.out.println(i+". Contre-torpilleur (r)"); break;
-			case 's' : System.out.println(i+". Sous-marin (s)"); break;
-			case 't' : System.out.println(i+". Torpilleur (t)"); break;
-			default : System.out.println(i+". Autre bateau");
+		for(i = 0; i < grille.getNbBateaux(); i++){
+			if(grille.getBateau(i) != null){
+				switch(grille.getBateau(i).getSymbole()){
+				case 'p' : System.out.println(i+". Porte-avion (p)"); break;
+				case 'c' : System.out.println(i+". Croiseur (c)"); break;
+				case 'r' : System.out.println(i+". Contre-torpilleur (r)"); break;
+				case 's' : System.out.println(i+". Sous-marin (s)"); break;
+				case 't' : System.out.println(i+". Torpilleur (t)"); break;
+				default : System.out.println(i+". Autre bateau");
+				}
 			}
 		}
 		// choix
@@ -237,8 +239,13 @@ public class Joueur {
 	 * @return true si la grille du joueur est vide
 	 */
 	public boolean aPerdu(){
-		// return !grille.resteBateaux();
-		return false;
+		boolean res = true;
+		for(int i = 0; i < grille.getNbBateaux(); i++){
+			if(grille.getBateau(i) != null){
+				res = false;
+			}
+		}
+		return res;
 	}
 	
 	// ---------- Getters et Setters ----------
