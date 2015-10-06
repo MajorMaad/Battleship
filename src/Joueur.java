@@ -85,7 +85,7 @@ public class Joueur {
 		k = colonne - vision+1;
 		if(k < 0)
 			k = 0;
-		while(k < colonne + vision){
+		while(k < colonne + vision && k < 10){
 			tirsPossibles += " " + intToChar(j) + "" + k;
 			k++;
 		}
@@ -94,7 +94,7 @@ public class Joueur {
 		// Enfin, on récupère les cases situées au-dessous du bateau
 		k = colonne;
 		j++;
-		while(j < ligne + vision){
+		while(j < ligne + vision && j < 'j'){
 			tirsPossibles += " " + intToChar(j) + "" + k;
 			j++;
 		}
@@ -109,7 +109,7 @@ public class Joueur {
 			caseAttaquee = caseAttaquee + selectionnerLigne(scan);
 			caseAttaquee = caseAttaquee + selectionnerColonne(scan);
 			
-			if(caseAttaquee.charAt(0) - 'a' > (ligne - 'a') - vision && caseAttaquee.charAt(0) - 'a' < (ligne - 'a') + vision
+			if(caseAttaquee.charAt(0)  > ligne - vision && caseAttaquee.charAt(0) < ligne + vision
 					&& caseAttaquee.charAt(1) - '0' > colonne - vision && caseAttaquee.charAt(1) - '0' < colonne + vision){
 				System.out.println("Case attaquée : " + caseAttaquee);
 				tirValide = true;
