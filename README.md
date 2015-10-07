@@ -1,5 +1,10 @@
 # Battleship
 
+## Auteurs
+
+* Marie Darrigol
+* Quentin Audinot
+
 ## Jeu de bataille navale
 
 *Battleship est un jeu de bataille navale dont les règles diffèrent un peu de la bataille navale classique. Il se joue à un seul joueur contre un adversaire virtuel (IA).*
